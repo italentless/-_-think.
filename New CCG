@@ -1,0 +1,88 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
+const questions = [
+  { text: "What’s a memory from childhood that still shapes how you see the world?", category: "reflection" },
+  { text: "If you had to introduce yourself without saying your name, how would you do it?", category: "identity" },
+  { text: "What’s a song that instantly makes you feel like the main character?", category: "music" },
+  { text: "If your personality was a color, what shade would it be and why?", category: "identity" },
+  { text: "What’s a habit or quirk you have that people don’t usually notice?", category: "quirks" },
+  { text: "If you could choose your own name, what would it be?", category: "identity" },
+  { text: "What’s something people always get wrong about you at first?", category: "perception" },
+  { text: "If you had to explain yourself in three completely random objects, what would they be?", category: "identity" },
+  { text: "What’s the most ‘you’ thing you’ve ever done?", category: "quirks" },
+  { text: "What’s a question you love asking people?", category: "social" },
+  { text: "If your life was a novel, what would the first sentence be?", category: "reflection" },
+  { text: "What’s a little-known fact about something you love?", category: "fun" },
+  { text: "If you had to sum up your entire life philosophy in one sentence, what would it be?", category: "reflection" },
+  { text: "What’s a topic you could talk about for hours without getting bored?", category: "fun" },
+  { text: "What’s a compliment you’ve received that stuck with you?", category: "reflection" },
+  { text: "If you could relive one moment in your life exactly as it happened, what would it be?", category: "reflection" },
+  { text: "What’s a word or phrase you say all the time without realizing?", category: "quirks" },
+  { text: "What’s a movie, show, or book that changed how you see the world?", category: "reflection" },
+  { text: "If you could instantly master one skill, what would it be?", category: "fun" },
+  { text: "What’s a small act of kindness someone did for you that you’ll never forget?", category: "reflection" },
+  { text: "What’s a dream or goal you’ve had since childhood?", category: "reflection" },
+  { text: "If you could have dinner with any fictional character, who would it be?", category: "fun" },
+  { text: "What’s an experience that made you feel truly alive?", category: "reflection" },
+  { text: "If you could live in any time period, past or future, which would you choose and why?", category: "fun" },
+  { text: "What’s a guilty pleasure you’re not actually guilty about?", category: "quirks" },
+  { text: "What’s the best advice you’ve ever received?", category: "reflection" },
+  { text: "If you could switch lives with someone for a day, who would it be?", category: "fun" },
+  { text: "What’s a skill you’ve always wanted to learn but never had the chance to?", category: "reflection" },
+  { text: "If your life had a soundtrack, what song would play during your happiest moments?", category: "music" },
+  { text: "What’s a place that feels like home, even if you’ve never lived there?", category: "reflection" },
+  { text: "If you could bring one fictional world to life, which would it be?", category: "fun" },
+  { text: "What’s something small that always makes your day better?", category: "quirks" },
+  { text: "What’s a lesson you learned the hard way?", category: "reflection" },
+  { text: "If you could speak any language fluently overnight, which one would it be?", category: "fun" },
+  { text: "What’s an old habit you had to unlearn?", category: "reflection" },
+  { text: "If you could have any animal as a pet (real or mythical), what would you choose?", category: "fun" },
+  { text: "What’s a moment in your life that felt like a scene from a movie?", category: "reflection" },
+  { text: "If you could design your perfect day from start to finish, what would it look like?", category: "fun" },
+  { text: "What’s a personal mantra or motto you live by?", category: "reflection" }
+];
+
+const categoryColors = {
+  reflection: "#F37A8F",
+  identity: "#FF9568",
+  music: "#FFC968",
+  quirks: "#4FA896",
+  perception: "#7184B3",
+  social: "#F37A8F",
+  fun: "#FF9568"
+};
+
+export default function CardGame() {
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+
+  const getRandomQuestion = () => {
+    const randomIndex = Math.floor(Math.random() * questions.length);
+    setCurrentQuestion(questions[randomIndex]);
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="w-96 p-4"
+      >
+        <Card
+          className="text-center p-6 rounded-2xl shadow-lg"
+          style={{ backgroundColor: currentQuestion ? categoryColors[currentQuestion.category] : "#gray-800" }}
+        >
+          <CardContent className="text-xl font-semibold" style={{ fontFamily: 'Comic Sans MS, cursive, sans-serif' }}>
+            {currentQuestion ? currentQuestion.text : "Press the button to start!"}
+          </CardContent>
+        </Card>
+      </motion.div>
+      <Button className="mt-6 px-6 py-3 bg-blue-500 rounded-xl" onClick={getRandomQuestion}>
+        Next Question
+      </Button>
+    </div>
+  );
+}
